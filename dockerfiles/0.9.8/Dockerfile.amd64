@@ -1,0 +1,67 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+# This Dockerfile is for DDM tutorial
+# The buid from the base of scipy-notebook, based on python 3.8
+
+ARG BASE_CONTAINER=jupyter/scipy-notebook:x86_64-python-3.8
+FROM $BASE_CONTAINER
+
+LABEL maintainer="Hu Chuan-Peng <hcp4715@hotmail.com>"
+
+USER root
+
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install -y build-essential gcc gfortran && \
+    apt-get install -y --no-install-recommends apt-utils ffmpeg dvipng && \
+    rm -rf /var/lib/apt/lists/*
+
+USER $NB_UID
+
+# uinstall pymc 5 to avoid conflict:
+RUN pip uninstall --no-cache-dir numpy -y && \
+    fix-permissions "/home/${NB_USER}"
+
+USER $NB_UID
+RUN pip install --upgrade pip && \
+    # it must be numpy 1.23 other than 1.22 or 1.24. 1.22 incompatible with ssms; and 1.24 incompatible with pymc
+    pip install 'numpy==1.23.*' && \
+    pip install 'pandas==2.0.1' && \
+    pip install --no-cache-dir 'plotly==4.14.3' && \
+    pip install --no-cache-dir 'cufflinks==0.17.3' && \
+    # install ptitprince for raincloud plot in python
+    pip install --no-cache-dir 'ptitprince==0.2.*' && \
+    pip install --no-cache-dir 'p_tqdm' && \
+    # using epool pymc, it is compatible with newest numpy
+    pip install --no-cache-dir git+https://gitee.com/epool/pymc2.git && \
+    # pip install --no-cache-dir git+https://github.com/hcp4715/pymc2 && \
+    pip install --no-cache-dir git+https://gitee.com/epool/kabuki.git && \ 
+    pip install --no-cache-dir git+https://gitee.com/epool/ssm-simulators.git && \ 
+    pip install --no-cache-dir git+https://gitee.com/epool/hddm.git && \
+    pip install 'arviz==0.14.0' 'numpy==1.23.*' 'pandas==2.0.1' && \
+    fix-permissions "/home/${NB_USER}"
+
+RUN pip install --no-cache-dir torch==1.9.0 -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+    fix-permissions "/home/${NB_USER}"
+
+# Import matplotlib the first time to build the font cache.
+ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
+
+RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" &&\
+    fix-permissions "/home/${NB_USER}"
+
+USER $NB_UID
+WORKDIR $HOME
+
+# Copy example data and scripts to the example folder
+RUN mkdir /home/$NB_USER/example && \
+    mkdir /home/$NB_USER/tutorial && \
+    rm -r /home/$NB_USER/work && \
+    fix-permissions /home/$NB_USER
+
+
+COPY /tutorial/dockerHDDM_primer.ipynb /home/${NB_USER}/tutorial
+COPY /example/HDDM_official_tutorial_reproduced.ipynb /home/${NB_USER}/example
+COPY /example/HDDMnnRL_Tutorial_Reproduced.ipynb /home/${NB_USER}/example
+COPY /example/LAN_Tutorial_reproduced.ipynb /home/${NB_USER}/example

@@ -1,7 +1,6 @@
-**
-!/example/HDDM_official_tutorial_reproduced.ipynb
-!/example/HDDMnnRL_Tutorial_Reproduced.ipynb
-!/example/LAN_Tutorial_reproduced.ipynb
-!/tutorial/dockerHDDM_primer.ipynb
-!/tutorial/dockerHDDM_tutorial.ipynb
-!/tutorial/HDDM_Tutorial_01.ipynb.ipynb
+# Ignore everything in the root directory
+/*
+
+# Exceptitons
+!/example/*
+!/tutorial/*

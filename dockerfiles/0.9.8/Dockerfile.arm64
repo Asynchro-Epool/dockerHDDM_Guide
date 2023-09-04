@@ -64,16 +64,20 @@ RUN pip install --upgrade pip && \
     pip install --no-cache-dir 'cufflinks==0.17.3' && \
     # install ptitprince for raincloud plot in python
     pip install --no-cache-dir 'ptitprince==0.2.*' && \
-    pip install --no-cache-dir 'p_tqdm' && \
-    pip install --no-cache-dir git+https://github.com/arviz-devs/arviz.git@2c50144d0b804078a6deebc7a861e583fe8d40c6 && \
-    pip install --no-cache-dir git+https://github.com/hcp4715/pymc2 && \
-    pip install --no-cache-dir git+https://gitee.com/epool/kabuki && \ 
-    pip install --no-cache-dir git+https://gitee.com/epool/ssm-simulators && \ 
-    pip install --no-cache-dir git+https://gitee.com/epool/hddm && \
-    fix-permissions "/home/${NB_USER}"
+    pip install --no-cache-dir 'p_tqdm'
 
 RUN pip install --no-cache-dir torch==1.9.0 -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     fix-permissions "/home/${NB_USER}"
+
+# Customized core packages that use hddm dependencies
+RUN pip install --no-cache-dir git+https://github.com/arviz-devs/arviz.git@2c50144d0b804078a6deebc7a861e583fe8d40c6 && \
+    pip install pip install --no-cache-dir git+https://gitee.com/epool/pymc2 && \
+    # pip install --no-cache-dir git+https://github.com/hcp4715/pymc2 && \
+    pip install --no-cache-dir git+https://gitee.com/epool/kabuki && \ 
+    pip install --no-cache-dir git+https://gitee.com/epool/ssm-simulators -i https://pypi.tuna.tsinghua.edu.cn/simple && \ 
+    pip install --no-cache-dir git+https://gitee.com/epool/hddm && \
+    fix-permissions "/home/${NB_USER}"
+
 
 # Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
@@ -92,6 +96,7 @@ RUN mkdir /home/$NB_USER/example && \
 
 
 COPY /tutorial/dockerHDDM_primer.ipynb /home/${NB_USER}/tutorial
-COPY /example/HDDM_official_tutorial_reproduced.ipynb /home/${NB_USER}/example
-COPY /example/HDDMnnRL_Tutorial_Reproduced.ipynb /home/${NB_USER}/example
-COPY /example/LAN_Tutorial_reproduced.ipynb /home/${NB_USER}/example
+COPY /example/Basic_HDDM_Tutorial.ipynb /home/${NB_USER}/example
+COPY /example/From_simulator_to_intference_with_HDDM_LAN_version.ipynb /home/${NB_USER}/example
+COPY /example/LAN_Tutorial.ipynb /home/${NB_USER}/example
+COPY /example/Posterior_Predictive_Checks.ipynb /home/${NB_USER}/example

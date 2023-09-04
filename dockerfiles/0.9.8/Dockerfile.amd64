@@ -34,7 +34,11 @@ RUN pip install --upgrade pip && \
     pip install 'ptitprince==0.2.*' -i https://pypi.tuna.tsinghua.edu.cn/simple  && \
     pip install 'p_tqdm'  -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     pip install 'arviz==0.14.0' -i https://pypi.tuna.tsinghua.edu.cn/simple
-# using epool pymc, it is compatible with newest numpy
+
+RUN pip install --no-cache-dir torch==1.9.0 -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+    fix-permissions "/home/${NB_USER}"
+
+# Customized core packages that use hddm dependencies
 RUN pip install pip install --no-cache-dir git+https://gitee.com/epool/pymc2 && \
     # pip install --no-cache-dir git+https://github.com/hcp4715/pymc2 && \
     pip install --no-cache-dir git+https://gitee.com/epool/kabuki && \ 
@@ -42,8 +46,6 @@ RUN pip install pip install --no-cache-dir git+https://gitee.com/epool/pymc2 && 
     pip install --no-cache-dir git+https://gitee.com/epool/hddm && \
     fix-permissions "/home/${NB_USER}"
 
-RUN pip install --no-cache-dir torch==1.9.0 -i https://pypi.tuna.tsinghua.edu.cn/simple && \
-    fix-permissions "/home/${NB_USER}"
 
 # Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
@@ -62,6 +64,7 @@ RUN mkdir /home/$NB_USER/example && \
 
 
 COPY /tutorial/dockerHDDM_primer.ipynb /home/${NB_USER}/tutorial
-COPY /example/HDDM_official_tutorial_reproduced.ipynb /home/${NB_USER}/example
-COPY /example/HDDMnnRL_Tutorial_Reproduced.ipynb /home/${NB_USER}/example
-COPY /example/LAN_Tutorial_reproduced.ipynb /home/${NB_USER}/example
+COPY /example/Basic_HDDM_Tutorial.ipynb /home/${NB_USER}/example
+COPY /example/From_simulator_to_intference_with_HDDM_LAN_version.ipynb /home/${NB_USER}/example
+COPY /example/LAN_Tutorial.ipynb /home/${NB_USER}/example
+COPY /example/Posterior_Predictive_Checks.ipynb /home/${NB_USER}/example

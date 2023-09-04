@@ -26,20 +26,20 @@ RUN pip uninstall --no-cache-dir numpy -y && \
 USER $NB_UID
 RUN pip install --upgrade pip && \
     # it must be numpy 1.23 other than 1.22 or 1.24. 1.22 incompatible with ssms; and 1.24 incompatible with pymc
-    pip install 'numpy==1.23.*' && \
-    pip install 'pandas==2.0.1' && \
-    pip install --no-cache-dir 'plotly==4.14.3' && \
-    pip install --no-cache-dir 'cufflinks==0.17.3' && \
+    pip install 'numpy==1.23.*'  -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+    pip install 'pandas==2.0.1'  -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+    pip install 'plotly==4.14.3' -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+    pip install 'cufflinks==0.17.3' -i https://pypi.tuna.tsinghua.edu.cn/simple  && \
     # install ptitprince for raincloud plot in python
-    pip install --no-cache-dir 'ptitprince==0.2.*' && \
-    pip install --no-cache-dir 'p_tqdm' && \
-    # using epool pymc, it is compatible with newest numpy
-    pip install --no-cache-dir git+https://gitee.com/epool/pymc2.git && \
+    pip install 'ptitprince==0.2.*' -i https://pypi.tuna.tsinghua.edu.cn/simple  && \
+    pip install 'p_tqdm'  -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+    pip install 'arviz==0.14.0' -i https://pypi.tuna.tsinghua.edu.cn/simple
+# using epool pymc, it is compatible with newest numpy
+RUN pip install pip install --no-cache-dir git+https://gitee.com/epool/pymc2 && \
     # pip install --no-cache-dir git+https://github.com/hcp4715/pymc2 && \
-    pip install --no-cache-dir git+https://gitee.com/epool/kabuki.git && \ 
-    pip install --no-cache-dir git+https://gitee.com/epool/ssm-simulators.git && \ 
-    pip install --no-cache-dir git+https://gitee.com/epool/hddm.git && \
-    pip install 'arviz==0.14.0' 'numpy==1.23.*' 'pandas==2.0.1' && \
+    pip install --no-cache-dir git+https://gitee.com/epool/kabuki && \ 
+    pip install --no-cache-dir git+https://gitee.com/epool/ssm-simulators -i https://pypi.tuna.tsinghua.edu.cn/simple && \ 
+    pip install --no-cache-dir git+https://gitee.com/epool/hddm && \
     fix-permissions "/home/${NB_USER}"
 
 RUN pip install --no-cache-dir torch==1.9.0 -i https://pypi.tuna.tsinghua.edu.cn/simple && \

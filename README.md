@@ -9,27 +9,42 @@ The docker image described by this tutorial can be found at: https://hub.docker.
 ## Folder structure of the current repo
 
 ```
-dockerHDDM_Guide
-|   Dockerfile
-|   README.md
-|
-└───scripts
-|   |    HDDMarvz.py
-|   |    InferenceDataFromHDDM.py
-|   |    plot_ppc_by_cond.py
-|   |    pointwise_loglik_gen.py
-|   |    post_pred_gen_redefined.py
-|   |    ...
-|
-└───temp
-|   |    include all kinds of temporary notebooks and scripts
-|   |    ...
-|
-└───tutorial
-    |    dockerHDDM_tutorial.ipynb
-    |    Def_Models.py
-    |    Run_all_models.py
-    |    figs
+.
+│  .dockerignore
+│  .gitignore
+│  README.md
+│              
+├─dockerfiles
+│  ├─0.8.0
+│  │  │  .dockerignore
+│  │  │  Dockerfile.amd64
+│  │  │  Dockerfile.arm64
+│  │  │  README.md
+│  │  │  
+│  │  └─examples
+│  │          
+│  ├─0.9.5
+│  │      Dockerfile
+│  │      
+│  └─0.9.8
+│          docker-bake.hcl
+│          Dockerfile.amd64
+│          Dockerfile.arm64
+│          README.md
+│          README_zh.md
+│          
+├─example
+│          Basic_HDDM_Tutorial.ipynb
+│          From_simulator_to_intference_with_HDDM_LAN_version.ipynb
+│          LAN_Tutorial.ipynb
+│          Posterior_Predictive_Checks.ipynb
+│              
+│              
+└─tutorial
+    │  dockerHDDM_primer.ipynb
+    │  dockerHDDM_workflow.ipynb
+    │  
+    └─figs
 ```
 
 ## What is HDDM? 

@@ -22,9 +22,6 @@ The docker image described by this tutorial can be found at: https://hub.docker.
 │  │  │  README.md
 │  │  │  
 │  │  └─examples
-│  │          
-│  ├─0.9.5
-│  │      Dockerfile
 │  │      
 │  └─0.9.8
 │          docker-bake.hcl

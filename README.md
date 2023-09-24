@@ -4,7 +4,7 @@ This is a repo for preparing *A Hitchhiker’s Guide to Bayesian Hierarchical Dr
 
 Please read our preprint at: https://psyarxiv.com/6uzga/
 
-The docker image described by this tutorial can be found at: https://hub.docker.com/r/hcp4715/hddm, with tag `0.8_tutorial`.
+The docker image described by this tutorial can be found at: https://hub.docker.com/r/hcp4715/hddm, with tag `latest`, i.e, 0.9.8.
 
 ## Folder structure of the current repo
 
@@ -48,7 +48,7 @@ The docker image described by this tutorial can be found at: https://hub.docker.
 A python package for hierarchical drift-diffusion models.
 
 ### Scope of the current tutorial
-We limited our tutorial to classic functions in HDDM (version 0.8.0), instead of the latest version of HDDM (0.9.*). However, the docker images of more recent HDDM are available (https://hub.docker.com/r/hcp4715/hddm).
+Our tutorial is compatible with classic version (0.8.0) and latest (0.9.8) of HDDM. All docker images are available (https://hub.docker.com/r/hcp4715/hddm).
 
 ## Three simple steps for using this guide
 
@@ -72,42 +72,26 @@ For linux users, verification of the installation is part of the instructions, w
 
 `sudo docker run hello-world`
 
-### Step 2: Pull the `hddm:08_tutorial`
+### Step 2: Pull the `hddm`
 
 Now that we successfully installed docker and can run docker in terminal or command line, we then pull the docker image for the current tutorial using the code below:
 
 ```
-docker pull hcp4715/hddm:0.8_tutorial
+docker pull hcp4715/hddm
 ```
 
-Note that this is also part of our tutorial (see our preprint: https://psyarxiv.com/6uzga/) and code (in `jupyter notebook`, i.e., `./tutorial/dockerHDDM_tutorial.ipynb` in this repo).
+Note that this is also part of our tutorial (see our preprint: https://psyarxiv.com/6uzga/) and code (in `jupyter notebook`, i.e., `./tutorial/dockerHDDM_primer.ipynb` in this repo).
 
 ### Step 3: Using HDDM and the tutorial
 
-Now that we successfully pulled the docker image for the tutorial, we can use use the HDDM inside the docker by starting a container.
-
-#### For Mac users
-
-##### With Apple chips
-
-...
-
-##### With Intel chips
-
-...
-
-#### For Windows users
-
-...
-
-#### For Linux users
+Now that we successfully pulled the docker image for the tutorial, we can use use the HDDM inside the docker by starting a container. Note that our docker images are compatible with MacOS (M1 chip), Linux and Windows，and you can rest assured to use it.  
 
 run the code below in termial:
 
 ```
 docker run -it --rm --cpus=5 \
--v /home/hcp4715/DDM/dockerHDDM_guide:/home/jovyan/work \
--p 8888:8888 hcp4715/hddm:0.8_tutorial jupyter notebook
+-v $(pwd):/home/jovyan/work \
+-p 8888:8888 hcp4715/hddm:latest jupyter notebook
 ```
 
 `docker run` ---- run a docker image in a container
@@ -120,13 +104,13 @@ docker run -it --rm --cpus=5 \
 
 `-v` ---- mount a folder to the container
 
-`/home/hcp4715/DDM/dockerHDDM_guide` ---- the directory of a local folder where I store my script and data. 
+`$(pwd)` ---- the current working directory where storing customized script and data. And you could replace it to any path in your computer. 
 
 `/home/jovyan/work` ---- the folder path  where the local folder will be mounted [**do not change this unless you know what you are doing**]
 
 `-p` ---- Publish a container’s port(s) to the host
 
-`hcp4715/ddm:0.8_tutorial` ---- the docker image to run
+`hcp4715/ddm:latest` ---- the docker image to run
 
 `jupyter notebook` ---- Open juypter notebook when start running the container.
 
@@ -143,23 +127,25 @@ Or copy and paste one of these URLs:
 
 Copy the url (http://127.0.0.1:8888/?.......) to a browser (firefox or chrome) and it will show a web page, this is the interface of jupyter notebook! 
 
-Under the `Files` tab, there should be three folders: `work`, `example`, and `scripts`. The `work` folder is the local folder mounted in docker container. The `example` folder was the one built in docker image, this folder contains several example jupyter notebooks, including `dockerHDDM_tutorial.ipynb`. The `scripts` folder contains python scripts that are supporting function unavailable in original HDDM.
+Under the `Files` tab, there should be three folders: `work`, `example`, and `tutorial`. 
 
-Enter `example` folder, you can reproduce the analysis we presented in the tutorial.
+- The `example` folder contains several tested example jupyter notebooks from original HDDM. 
+- The `tutorial` folder contains two tutorial notebook introduced in [our paper](https://psyarxiv.com/6uzga/), inlcuding [dockerHDDM_primer.ipynb](tutorial/dockerHDDM_primer.ipynb) and [dockerHDDM_workflow.ipynb](tutorial/dockerHDDM_workflow.ipynb), in which you can reproduce the analysis we presented in the tutorial.
+- The `work` folder is the local folder mounted in docker container. Enter `work` folder, you can analyze your own data stored in folder of current working directory.
 
-Enter `work` folder, you can analyze your own data stored in folder `/home/hcp4715/DDM/dockerHDDM_guide` with HDDM (version 0.8).
 
 ## How this docker image was built
-An alternative way to get the docker image is to build it from `Dockerfile`.
+
+An alternative way to get the docker image is to build it from `Dockerfile`, [more details](dockerfiles/0.9.8/README.md)
 
 I built this docker image under Ubuntu 20.04. 
 
 Code for building the docker image (don't forget the `.` in the end):
 
 ```
-docker build -t hcp4715/hddm:0.8_tutorial -f Dockerfile .
+docker build -t hcp4715/hddm:latest -f Dockerfile .
 ```
-You can replace `hcp4715` with your username in docker hub, and replace `hddm:0.8_tutorial` with a name and tag you prefer.
+You can replace `hcp4715` with your username in docker hub, and replace `hddm:latest` with a name and tag you prefer.
 
 ## Acknowledgement
 Thank [@madslupe](https://github.com/madslupe) for his previous HDDM image, which laid the base for the current version. Thank [Dr Rui Yuan](https://scholar.google.com/citations?user=h8_wSLkAAAAJ&hl=en) for his help in creating the Dockerfile.

@@ -57,14 +57,14 @@ USER $NB_UID
 WORKDIR $HOME
 
 # Copy example data and scripts to the example folder
-RUN mkdir /home/$NB_USER/example && \
-    mkdir /home/$NB_USER/tutorial && \
+RUN mkdir /home/$NB_USER/OfficialTutorials && \
     rm -r /home/$NB_USER/work && \
     fix-permissions /home/$NB_USER
 
 
-COPY /tutorial/dockerHDDM_primer.ipynb /home/${NB_USER}/tutorial
-COPY /example/Basic_HDDM_Tutorial.ipynb /home/${NB_USER}/example
-COPY /example/From_simulator_to_intference_with_HDDM_LAN_version.ipynb /home/${NB_USER}/example
-COPY /example/LAN_Tutorial.ipynb /home/${NB_USER}/example
-COPY /example/Posterior_Predictive_Checks.ipynb /home/${NB_USER}/example
+COPY /dockerHDDM_tutorial/dockerHDDM_quick_view.ipynb /home/${NB_USER}
+COPY /dockerHDDM_tutorial/dockerHDDM_workflow.ipynb /home/${NB_USER}
+COPY /HDDM_official_tutorial/HDDM_Basic_Tutorial.ipynb /home/${NB_USER}OfficialTutorials
+COPY /HDDM_official_tutorial/HDDM_Regression_Stimcoding.ipynb /home/${NB_USER}OfficialTutorials
+COPY /HDDM_official_tutorial/Posterior_Predictive_Checks.ipynb /home/${NB_USER}OfficialTutorials
+COPY /HDDM_official_tutorial/LAN_Tutorial.ipynb /home/${NB_USER}OfficialTutorials

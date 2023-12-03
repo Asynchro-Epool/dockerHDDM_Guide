@@ -16,8 +16,8 @@ docker buildx bake -f docker-bake.hcl --load
 
 运行测试
 - 注意: 请更改路径 `D:\dockerHDDM\tutorial` 为自定义路径
-docker run -it --rm --cpus=8 -v D:\dockerHDDM\tutorial:/home/jovyan/work -p 8888:8888 hcp4715/hddm:0.9.8-amd64
-docker run -it --rm --cpus=8 -v D:\dockerHDDM\tutorial:/home/jovyan/work -p 8888:8888 hcp4715/hddm:0.9.8-arm64
+docker run -it --rm --cpus=8 -v D:\dockerHDDM\dockerHDDM_tutorial:/home/jovyan/work -p 8888:8888 hcp4715/hddm:0.9.8-amd64
+docker run -it --rm --cpus=8 -v D:\dockerHDDM\dockerHDDM_tutorial:/home/jovyan/work -p 8888:8888 hcp4715/hddm:0.9.8-arm64
 
 
 # 2. push images 和 修改 manifest

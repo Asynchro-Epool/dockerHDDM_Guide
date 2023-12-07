@@ -64,7 +64,7 @@ RUN mkdir /home/$NB_USER/OfficialTutorials && \
 
 COPY /dockerHDDM_tutorial/dockerHDDM_quick_view.ipynb /home/${NB_USER}
 COPY /dockerHDDM_tutorial/dockerHDDM_workflow.ipynb /home/${NB_USER}
-COPY /HDDM_official_tutorial/HDDM_Basic_Tutorial.ipynb /home/${NB_USER}OfficialTutorials
-COPY /HDDM_official_tutorial/HDDM_Regression_Stimcoding.ipynb /home/${NB_USER}OfficialTutorials
-COPY /HDDM_official_tutorial/Posterior_Predictive_Checks.ipynb /home/${NB_USER}OfficialTutorials
-COPY /HDDM_official_tutorial/LAN_Tutorial.ipynb /home/${NB_USER}OfficialTutorials
+COPY /OfficialTutorial/HDDM_Basic_Tutorial.ipynb /home/${NB_USER}OfficialTutorials
+COPY /OfficialTutorial/HDDM_Regression_Stimcoding.ipynb /home/${NB_USER}OfficialTutorials
+COPY /OfficialTutorial/Posterior_Predictive_Checks.ipynb /home/${NB_USER}OfficialTutorials
+COPY /OfficialTutorial/LAN_Tutorial.ipynb /home/${NB_USER}OfficialTutorials

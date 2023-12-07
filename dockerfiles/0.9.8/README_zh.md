@@ -34,3 +34,28 @@ push images
 - `docker manifest annotate hcp4715/hddm:0.9.8RC hcp4715/hddm:0.9.8-amd64 --os=linux --arch=amd64`
 - `docker manifest annotate hcp4715/hddm:0.9.8RC hcp4715/hddm:0.9.8-arm64 --os=linux --arch=arm64`
 - `docker manifest push hcp4715/hddm:0.9.8RC`
+
+构建多架构的思路：
+`docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile -t wanke/hddm:0.9.8 . --push`
+- 要不使用一个 dockerfile, 然后使用 if
+    ```
+    ARG ARCH
+    RUN if [ "$ARCH" = "amd64" ]; then \
+        echo "Running on amd64"; \
+        # 在这里添加针对 amd64 架构的命令 \
+        fi
+    ```
+- 要不使用多stage
+    ```
+    # 标记镜像适用于 amd64 架构
+    FROM alpine:latest AS amd64
+
+    RUN echo "Running on amd64"
+    # 添加适用于 amd64 架构的其他命令
+
+    # 标记镜像适用于 arm64 架构
+    FROM alpine:latest AS arm64
+
+    RUN echo "Running on arm64"
+    # 添加适用于 arm64 架构的其他命令
+    ```

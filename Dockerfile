@@ -33,8 +33,17 @@ RUN pip install --upgrade pip && \
   pip install 'cufflinks==0.17.3' -i https://pypi.tuna.tsinghua.edu.cn/simple  && \
   # install ptitprince for raincloud plot in python
   pip install 'ptitprince==0.2.*' -i https://pypi.tuna.tsinghua.edu.cn/simple  && \
-  pip install 'p_tqdm'  -i https://pypi.tuna.tsinghua.edu.cn/simple && \
-  pip install 'arviz==0.14.0' -i https://pypi.tuna.tsinghua.edu.cn/simple
+  pip install 'p_tqdm'  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# conda install -c conda-forge python-graphviz
+RUN conda install -c conda-forge --quiet --yes \
+  'h5py' \
+  'hdf5' \
+  'netcdf4' \
+  && \
+  conda clean --all -f -y && \
+  fix-permissions "/home/${NB_USER}"
+RUN pip install 'arviz==0.14.0' -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 RUN pip install --no-cache-dir torch==1.9.0 -i https://pypi.tuna.tsinghua.edu.cn/simple && \
   fix-permissions "/home/${NB_USER}"

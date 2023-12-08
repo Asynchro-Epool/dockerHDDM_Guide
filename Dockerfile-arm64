@@ -34,17 +34,17 @@ RUN export CC=aarch64-linux-gnu-gcc &&\
 USER $NB_UID
 
 # Install Python 3 packages
-# RUN conda install --quiet --yes \
-#   'git' \
-#   'jupyter_bokeh' \
-#   && \
-#   conda clean --all -f -y && \
-#   fix-permissions "/home/${NB_USER}"
+RUN conda install --quiet --yes \
+  'openturns' \
+  # 'git' \
+  # 'jupyter_bokeh' \
+  && \
+  conda clean --all -f -y && \
+  fix-permissions "/home/${NB_USER}"
 
 # # conda install -c conda-forge python-graphviz
 RUN conda install -c conda-forge --quiet --yes \
   # 'python-graphviz' \
-  'openturns' \
   'h5py' \
   'hdf5' \
   'netcdf4' \

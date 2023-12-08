@@ -21,6 +21,6 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
     - name: Build the Docker image
-      run: docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/hddm:0.9.8 . --push
+      run: docker buildx build --platform linux/arm64 -f Dockerfile-arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/hddm:0.9.8-arm64 . --push
     # - name: Docker image push
     #   run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/hddm:0.9.8-amd64

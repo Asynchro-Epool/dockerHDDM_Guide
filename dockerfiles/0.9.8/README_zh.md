@@ -59,3 +59,10 @@ push images
     RUN echo "Running on arm64"
     # 添加适用于 arm64 架构的其他命令
     ```
+
+bug 日志：
+- 单个 dockerfile 打包 arm64 架构。docker buildx build 报错，netcdf4 报错。
+- 单个 dockerfile 打包 arm64 架构，考虑 conda 安装 netcdf4。src/wfpt.pyx 编译报错。
+- 分 stage 打包，报错无法下载 g++-aarch64-linux-gnu。 
+- 单独测试 arm64 的build。src/wfpt.pyx openturns
+  - 加入安装 openturns。

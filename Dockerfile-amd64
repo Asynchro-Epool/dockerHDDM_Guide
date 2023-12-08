@@ -22,12 +22,14 @@ USER $NB_UID
 
 # uinstall pymc 5 to avoid conflict:
 RUN pip uninstall --no-cache-dir numpy -y && \
+  pip uninstall --no-cache-dir pymc -y && \
+  pip uninstall --no-cache-dir pandas -y && \
   fix-permissions "/home/${NB_USER}"
 
 USER $NB_UID
 RUN pip install --upgrade pip
 RUN  pip install 'setuptools' --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
-RUN  pip install 'openturns' --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN  pip install 'openturns' -i https://pypi.tuna.tsinghua.edu.cn/simple
 # it must be numpy 1.23 other than 1.22 or 1.24. 1.22 incompatible with ssms; and 1.24 incompatible with pymc
 RUN  pip install 'numpy==1.23.*'  -i https://pypi.tuna.tsinghua.edu.cn/simple
 RUN  pip install 'pandas==2.0.1'  -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -45,7 +47,7 @@ RUN conda install -c conda-forge --quiet --yes \
   && \
   conda clean --all -f -y && \
   fix-permissions "/home/${NB_USER}"
-RUN pip install 'arviz==0.14.0' -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip install --no-cache-dir git+https://github.com/arviz-devs/arviz.git@2c50144d0b804078a6deebc7a861e583fe8d40c6
 
 RUN pip install --no-cache-dir torch==1.9.0 -i https://pypi.tuna.tsinghua.edu.cn/simple && \
   fix-permissions "/home/${NB_USER}"

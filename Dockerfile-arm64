@@ -16,6 +16,7 @@ RUN apt-get update -y && \
   apt-get install -y build-essential&& \
   # apt-get install -y --no-install-recommends gcc-aarch64-linux-gnu && \
   # apt-get install -y --no-install-recommends g++-aarch64-linux-gnu && \
+  apt-get install -y cmake && \
   apt-get install -y gfortran && \
   apt-get install -y libatlas-base-dev && \
   apt-get install -y libopenblas-dev && \

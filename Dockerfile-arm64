@@ -34,28 +34,30 @@ RUN export CC=aarch64-linux-gnu-gcc &&\
 USER $NB_UID
 
 # Install Python 3 packages
-RUN conda install --quiet --yes \
-  'git' \
-  'jupyter_bokeh' \
-  && \
-  conda clean --all -f -y && \
-  fix-permissions "/home/${NB_USER}"
+# RUN conda install --quiet --yes \
+#   'git' \
+#   'jupyter_bokeh' \
+#   && \
+#   conda clean --all -f -y && \
+#   fix-permissions "/home/${NB_USER}"
 
-# conda install -c conda-forge python-graphviz
-RUN conda install -c conda-forge --quiet --yes \
-  'python-graphviz' \
-  'h5py' \
-  'hdf5' \
-  'netcdf4' \
-  && \
-  conda clean --all -f -y && \
-  fix-permissions "/home/${NB_USER}"
+# # conda install -c conda-forge python-graphviz
+# RUN conda install -c conda-forge --quiet --yes \
+#   'python-graphviz' \
+#   'h5py' \
+#   'hdf5' \
+#   'netcdf4' \
+#   && \
+#   conda clean --all -f -y && \
+#   fix-permissions "/home/${NB_USER}"
 
 # uinstall pymc 5 to avoid conflict:
 RUN pip uninstall --no-cache-dir pymc -y && \
   pip uninstall --no-cache-dir pandas -y && \
   fix-permissions "/home/${NB_USER}"
 
+RUN pip install --no-cache-dir h5py hdf5 netcdf4
+RUN pip install --no-cache-dir git+https://github.com/arviz-devs/arviz.git@2c50144d0b804078a6deebc7a861e583fe8d40c6
 USER $NB_UID
 
 RUN pip install --upgrade pip

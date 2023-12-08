@@ -12,10 +12,10 @@ USER root
 
 RUN apt-get update -y && \
   apt-get upgrade -y && \
-  apt-get install -y apt-utils && \
+  # apt-get install -y apt-utils && \
   apt-get install -y build-essential&& \
-  apt-get install -y --no-install-recommends gcc-aarch64-linux-gnu && \
-  apt-get install -y --no-install-recommends g++-aarch64-linux-gnu && \
+  # apt-get install -y --no-install-recommends gcc-aarch64-linux-gnu && \
+  # apt-get install -y --no-install-recommends g++-aarch64-linux-gnu && \
   apt-get install -y gfortran && \
   apt-get install -y libatlas-base-dev && \
   apt-get install -y libopenblas-dev && \
@@ -51,10 +51,9 @@ USER $NB_UID
 #   fix-permissions "/home/${NB_USER}"
 
 # uinstall pymc 5 to avoid conflict:
-RUN pip uninstall --no-cache-dir pymc -y && \
-  pip uninstall --no-cache-dir pandas -y && \
-  pip uninstall --no-cache-dir numpy -y && \
-  fix-permissions "/home/${NB_USER}"
+# RUN pip uninstall --no-cache-dir pandas -y && \
+  # pip uninstall --no-cache-dir numpy -y && \
+  # fix-permissions "/home/${NB_USER}"
 
 RUN pip install --upgrade pip
 # RUN  pip install 'setuptools' --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -70,8 +69,9 @@ RUN pip install --upgrade pip
 # RUN pip install --no-cache-dir torch==1.9.0 -i https://pypi.tuna.tsinghua.edu.cn/simple && \
 #   fix-permissions "/home/${NB_USER}"
 
-RUN  pip install 'numpy==1.23.*'  -i https://pypi.tuna.tsinghua.edu.cn/simple
+# RUN  pip install 'numpy==1.23.*'  -i https://pypi.tuna.tsinghua.edu.cn/simple
 RUN  pip install 'pandas==2.0.1'  -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN  pip install openturns==1.20.post3
 # Customized core packages that use hddm dependencies
 RUN pip install --no-cache-dir git+https://gitee.com/epool/pymc2 && \
   pip install --no-cache-dir git+https://gitee.com/epool/kabuki && \ 

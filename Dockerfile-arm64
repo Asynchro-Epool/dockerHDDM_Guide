@@ -58,8 +58,10 @@ RUN pip uninstall --no-cache-dir pymc -y && \
 
 USER $NB_UID
 
-RUN pip install --upgrade pip && \
-  pip install --no-cache-dir 'plotly==4.14.3' && \
+RUN pip install --upgrade pip
+RUN  pip install 'setuptools' --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN  pip install 'openturns'
+RUN  pip install --no-cache-dir 'plotly==4.14.3' && \
   pip install --no-cache-dir 'cufflinks==0.17.3' && \
   # install ptitprince for raincloud plot in python
   pip install --no-cache-dir 'ptitprince==0.2.*' && \

@@ -71,7 +71,7 @@ RUN pip install --upgrade pip
 
 # RUN  pip install 'numpy==1.23.*'  -i https://pypi.tuna.tsinghua.edu.cn/simple
 RUN  pip install 'pandas==2.0.1'  -i https://pypi.tuna.tsinghua.edu.cn/simple
-RUN  pip install openturns==1.22rc1
+RUN  pip3 install --pre --extra-index-url https://pypi.anaconda.org/openturns-wheels-nightly/simple --upgrade --force-reinstall openturns
 # Customized core packages that use hddm dependencies
 RUN pip install --no-cache-dir git+https://gitee.com/epool/pymc2 && \
   pip install --no-cache-dir git+https://gitee.com/epool/kabuki && \ 

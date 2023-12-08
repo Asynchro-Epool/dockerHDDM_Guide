@@ -23,6 +23,10 @@ RUN apt-get update -y && \
   apt-get install -y pkg-config && \
   apt-get install -y --no-install-recommends ffmpeg dvipng && \
   rm -rf /var/lib/apt/lists/*
+RUN curl -s https://openturns.github.io/apt/public.key | apt-key add -
+RUN apt install apt-transport-https
+RUN apt update
+RUN apt install -y python3-openturns
 
 # set the env variables
 RUN export CC=aarch64-linux-gnu-gcc &&\
@@ -71,7 +75,7 @@ RUN pip install --upgrade pip
 
 # RUN  pip install 'numpy==1.23.*'  -i https://pypi.tuna.tsinghua.edu.cn/simple
 RUN  pip install 'pandas==2.0.1'  -i https://pypi.tuna.tsinghua.edu.cn/simple
-RUN  pip3 install --pre --extra-index-url https://pypi.anaconda.org/openturns-wheels-nightly/simple --upgrade --force-reinstall openturns
+# RUN  pip3 install --pre --extra-index-url https://pypi.anaconda.org/openturns-wheels-nightly/simple --upgrade --force-reinstall openturns
 # Customized core packages that use hddm dependencies
 RUN pip install --no-cache-dir git+https://gitee.com/epool/pymc2 && \
   pip install --no-cache-dir git+https://gitee.com/epool/kabuki && \ 

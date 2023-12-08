@@ -42,27 +42,26 @@ USER $NB_UID
 #   fix-permissions "/home/${NB_USER}"
 
 # # conda install -c conda-forge python-graphviz
-# RUN conda install -c conda-forge --quiet --yes \
-#   'python-graphviz' \
-#   'h5py' \
-#   'hdf5' \
-#   'netcdf4' \
-#   && \
-#   conda clean --all -f -y && \
-#   fix-permissions "/home/${NB_USER}"
+RUN conda install -c conda-forge --quiet --yes \
+  # 'python-graphviz' \
+  'openturns' \
+  'h5py' \
+  'hdf5' \
+  'netcdf4' \
+  && \
+  conda clean --all -f -y && \
+  fix-permissions "/home/${NB_USER}"
 
 # uinstall pymc 5 to avoid conflict:
 RUN pip uninstall --no-cache-dir pymc -y && \
   pip uninstall --no-cache-dir pandas -y && \
   fix-permissions "/home/${NB_USER}"
 
-RUN pip install --no-cache-dir h5py netcdf4
-RUN pip install --no-cache-dir git+https://github.com/arviz-devs/arviz.git@2c50144d0b804078a6deebc7a861e583fe8d40c6
-USER $NB_UID
-
 RUN pip install --upgrade pip
 RUN  pip install 'setuptools' --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
-RUN  pip install 'openturns'
+# RUN pip install --no-cache-dir h5py netcdf4
+RUN pip install --no-cache-dir git+https://github.com/arviz-devs/arviz.git@2c50144d0b804078a6deebc7a861e583fe8d40c6
+# RUN  pip install 'openturns'
 RUN  pip install --no-cache-dir 'plotly==4.14.3' && \
   pip install --no-cache-dir 'cufflinks==0.17.3' && \
   # install ptitprince for raincloud plot in python
